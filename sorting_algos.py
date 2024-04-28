@@ -1,11 +1,15 @@
 """
 
-Insertion sort: fist element is sorted, then consider every next element, if sorted element is greater,
+Insertion sort: In place sorting. fist element is sorted, then consider every next element, if sorted element is greater,
 than the next element then move to forward. After all the elements of the sorted part are moved one further,
 we have space to insert the current element. 
 
-Selection sort: Hold the first index, then iterate through the remaining array (arr[i+1, len(arr)),
+Selection sort: In place sorting. Hold the first index, then iterate through the remaining array (arr[i+1, len(arr)),
 once you find the smallest element, swap it with the first/current element in the outer loop. 
+
+Worst Case: O(n^2)
+Best Case: O(n^2)
+
 
 Quick sort: Divide and conquer algorithm. Find a pivot by calling the helper function partition(arr, left, right). 
 Partition chooses the right most element as pivot, then rearranges the whole array such that the pivot is placed
@@ -15,10 +19,16 @@ Helper partition returns the index of the rearranged pivot, quickSort recursivel
 two subarrays: [:pivot] and [pivot:]. 
 P.S. QuickSelect implements similar logic. 
 
+Worst Case: O(n^2)
+Best Case: O(nlogn)
 
-Bubble sort: start from the beginning, and keep comparing adjacent two values. If they are out of place then swap them.
+
+Bubble sort: It is in place sorting. Start from the beginning, and keep comparing adjacent two values. If they are out of place then swap them.
 Keep doing until there is no more swap. BubbleSort shrinks towards the beginning of the array because after each swap
 the array becomes sorted from the end to the beginning. 
+
+Worst Case: O(n^2)
+Best Case: O(n)
 """
 
 
@@ -63,13 +73,13 @@ def merge(left_arr, right_arr):
 
 
 def quickSort(nums, low, high):
+
+    
     if low < high:
         pi = partition(nums, low, high)
 
         quickSort(nums, low, pi - 1)
         quickSort(nums, pi+1, high)
-
-
 
 def partition(arr, low, high):
 
@@ -82,6 +92,8 @@ def partition(arr, low, high):
     nums[i+1], nums[high] = nums[high], nums[i+1]
     return i+1
 
+
+
 nums = [10, 7, 8, 9, 1, 5]
 # quickSort(nums, 0, len(nums) - 1)
 print(mergeSort(nums))
@@ -89,5 +101,19 @@ print(mergeSort(nums))
 
 def bubbleSort(arr):
     for i in range(len(arr)):
+        swapped = False
+        for j in range(0, len(arr)-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                swapped = True
+        if not swapped:
+            return arr
 
+
+        
+if __name__ == "__main__":
+    arr = [9,8,7,3,4,6,1,0]
+    print("arr before sorting:", arr)
+    bubbleSort(arr)
+    print("arr after sorting:", arr)
 
